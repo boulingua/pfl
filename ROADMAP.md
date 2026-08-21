@@ -2,16 +2,16 @@
 
 Status: **coming soon** (empty scaffold — LICENSE, README, brand icons only).
 This roadmap is the build plan to take `pfl` from scaffold to an active course on
-the boulingua world map, conforming to the `pagegen` template, the `curriculum`
+the boulingua world map, conforming to the `kit` platform, the `curriculum`
 framework, and the VG Wort standard. Course code: **`pfl`**. Signature accent:
-**`#AD701F`** (already registered in `pagegen/data/accents.yaml`).
+**`#AD701F`** (already registered in `kit/data/accents.yaml`).
 
 ---
 
 ## 1. Overview
 
 **What this is.** A free, CEFR-aligned, open (CC BY-SA 4.0) Polish course for
-self-learners and teachers, built on the shared boulingua Hugo template. Units,
+self-learners and teachers, built on the shared boulingua Hugo kit. Units,
 exams, materials (slide decks + worksheets) and native-voice audio, all
 committed, all statically hosted on GitHub Pages.
 
@@ -27,7 +27,7 @@ mediation/plurilingual descriptor material is thin — see §4).
 
 **Why Polish.** A large, in-demand Slavic language with almost no polished free
 OER at this production standard; strong diaspora and inbound-migration demand;
-and a genuinely instructive test of the template against a heavily inflected
+and a genuinely instructive test of the kit against a heavily inflected
 language (the existing courses are Germanic/Romance).
 
 **The 3–5 defining challenges.**
@@ -71,14 +71,14 @@ Concrete, opinionated choices — one recommendation each.
   digraphs, nasal vowels, stress-on-penult rule) rendered as a normal section with
   audio — *not* a full CEFR level. It carries `preA1` `LING`/`PRAG` descriptor
   coverage where the CV has descriptors and `no-official-descriptor` otherwise.
-- **Native voice / TTS.** **Decision:** default to the boulingua `audiogen`/Piper
-  pipeline. The licence position is clean and settles the choice:
+- **Native voice / TTS.** **Decision:** default to the kit's Piper pipeline
+  (`kit/audio/`). The licence position is clean and settles the choice:
   **`pl_PL-gosia-medium`** as primary and **`pl_PL-darkman-medium`** as the second
   speaker — both **CC0**, both medium tier — which gives the alternating pair
   dialogue needs without any fallback. `pl_PL-bass-high` is the only high-tier
   Polish voice and its model card carries **no licence line at all**, so it is
   excluded; an unstated licence is not permission. Voice IDs are read from
-  `audiogen/voices.yml` (relocating to `kit/audio/voices.yml` at F1) and are never
+  `kit/audio/voices.yml`, the single source of truth for voice IDs, and are never
   hand-typed — a transliterated ID is how a 404 gets written into a download
   script. What remains open is **quality, not availability**, so the audition gate
   stands: synthesize a diagnostic set (nasal vowels, palatalised series ś/ć/ź/dź,
@@ -90,29 +90,59 @@ Concrete, opinionated choices — one recommendation each.
 
 ---
 
-## 3. Instantiation from pagegen
+## 3. Instantiation from the kit
 
-Stand up the buildable site first; author content second.
+Stand up the buildable site first; author content second. Nothing shared is
+copied — the site is built *around* the kit.
 
-1. **Copy the template.** Instantiate `boulingua/pfl` from `pagegen` (template
-   files only — not `public/`, and start `data/vgwort.yaml` empty).
-2. **Edit `hugo.toml`** — change only the marked values:
+1. **Create the course repo.** `boulingua/pfl` holds a short `hugo.toml` —
+   baseURL, title, languageCode, `[params]`, menus and the module import
+
+   ```toml
+   [module]
+     [[module.imports]]
+       path = "github.com/boulingua/kit"
+   ```
+
+   — a `go.mod`/`go.sum` requiring `github.com/boulingua/kit` at the pinned tag
+   (`v1.0.0`), `boulingua.yml` (the per-course config the gate battery reads),
+   the twelve-line `.github/workflows/deploy.yml` that calls the org's reusable
+   workflow, an empty `content/` skeleton, the three legal pages, and an empty
+   `data/vgwort.yaml`. Preserve the existing `LICENSE`, `README.md` and
+   `brand/`. `layouts/`, `assets/`, `i18n/`, `archetypes/` and `scripts/` are
+   **not** copied and must never appear in this repo: they are the drift
+   surface, and a file that is not here cannot fork. Hugo resolves the first
+   four from the module; CI checks the kit out at the pinned tag so `scripts/`
+   and the gate battery are on disk before Hugo runs. Never track `public/`.
+2. **Vendor `_materials/`.** Run `kit materials sync` — it assembles the kit's
+   `latex/`, `fonts/` and `brand/icons/` into the flat tree the LaTeX build
+   expects — and commit the result. This is the only vendored surface, because
+   XeLaTeX cannot read a Hugo module; every file in it is verified against the
+   digests in `kit.lock`, so a hand-edit fails the build instead of forking
+   quietly. (Earlier drafts said to copy `_materials/` from the template.
+   `pagegen` never had one to copy.)
+3. **Edit `hugo.toml`** — change only the marked values:
    - `baseURL = "https://boulingua.github.io/pfl/"`
    - `title = "PFL — Polish"` , `languageCode = "en"` , `defaultContentLanguage = "en"`
    - `[params] navTitle = "Polski"` (brand), `description` + `keywords` (Polish, CEFR, OER),
-   - `params.code = "pfl"` (selects the `#AD701F` accent from `data/accents.yaml`),
+   - `params.code = "pfl"` (selects the `#AD701F` accent from the kit's
+     `data/accents.yaml`). Setting it is not optional: the kit ships the neutral
+     graphite `template` accent, so a course that forgets looks obviously
+     unconfigured rather than looking like DaF,
    - `[[params.social]] url = "https://github.com/boulingua/pfl"`,
    - `[params.plausible] domain = "boulingua.github.io/pfl"` (keep this block **last** — TOML sub-table trap),
    - `[[menu.main]]` sections mirroring `content/pfl-*/` (see §5): Get started, A1, A2, B1, B2, Materials, About, Legal.
-3. **Regenerate brand.** Run `python brand/make_icon.py` to regenerate the
-   pentagon icon + favicons from the `pfl` accent. Confirm the swatch matches
-   `#AD701F` / hover `#865618` / dark `#E7B97E`.
-4. **Confirm accent.** `data/accents.yaml` already carries `pfl` — verify, don't
-   re-add.
-5. **Legal.** Fill the ⟨…⟩ placeholders in `impressum` / `datenschutz` /
+4. **Regenerate brand.** Run the kit's `brand/make_icon.py` to regenerate the
+   pentagon icon + favicons from the `pfl` accent into this repo's `brand/`.
+   Confirm the swatch matches `#AD701F` / hover `#865618` / dark `#E7B97E`.
+5. **Confirm accent.** The kit's `data/accents.yaml` already carries `pfl` —
+   verify, don't re-add, and don't put an `accents.yaml` in this repo; it
+   arrives with the module.
+6. **Legal.** Fill the ⟨…⟩ placeholders in `impressum` / `datenschutz` /
    `haftungsausschluss`; disclose VG Wort METIS counting in `datenschutz`.
-6. **First green build.** `hugo --minify --gc` locally; push; confirm the
-   `build-deploy.yml` gate battery passes and GitHub Pages serves the site.
+7. **First green build.** `hugo --minify --gc` locally; push; confirm
+   `deploy.yml` builds with `--panicOnWarning`, the gate battery passes and
+   GitHub Pages serves the site.
    Acceptance: home + one placeholder level section render with the correct accent
    and pentagon favicon.
 
@@ -160,7 +190,7 @@ Recurring cast & theme (continuity aid): a small ensemble — e.g. **Kasia** (a
 student in Kraków), **Tomek**, and an international newcomer — reused across units
 so vocabulary, register (pan/pani vs ty) and situations build cumulatively.
 
-Content model (per `pagegen/docs/front-matter-fields.md`): page bundles under
+Content model (per `kit/docs/front-matter-fields.md`): page bundles under
 `content/<section>/units/<unitNN-slug>/index.md`; exams as **first-class sibling
 bundles** (`<unitNN-slug>-exam/` or per-level model exams), linked by `unit_nr`;
 section landings via **shortcodes only** (`hero`, `kicker`, `lead`, `card-grid`,
@@ -201,8 +231,9 @@ build with no new coverage warnings. A level is "phase-done" when all its units
 - **Section landings.** Each section `_index.md` (`page_type: section`) uses the
   shortcode kit: `hero`/`kicker`/`lead` intro + `card-grid`/`card` unit index.
   Mirror sections in `[[menu.main]]`.
-- **Materials pipeline.** Generate decks and worksheets locally from the branded
-  `slidegen`/`sheetgen` LaTeX templates via `scripts/build_materials_latex.py`;
+- **Materials pipeline.** Generate decks and worksheets locally from the kit's
+  branded LaTeX templates (`kit/latex/`, vendored into `_materials/`) via
+  `scripts/build_materials_latex.py`;
   **commit** the PDFs under `static/materials/{presentations,worksheets}` and
   downloadable bundles under `static/downloads/`. CI **only verifies** presence +
   attribution (`verify_downloads.py`) — no TeX Live in the deploy path. Ensure the
@@ -210,12 +241,12 @@ build with no new coverage warnings. A level is "phase-done" when all its units
 - **Thumbnails.** `scripts/render_thumbs.py` produces per-deck/worksheet
   thumbnails; wire them into the unit front-matter `presentation`/`worksheet`
   `{file, thumbnail}`.
-- **Audio.** `scripts/build_audio.py` (Piper) extracts vocab/dialogue/text
+- **Audio.** The kit's `audio/build_audio.py` (Piper) extracts vocab/dialogue/text
   segments, synthesizes OGG/Opus, writes `data/audio/<slug>.json`, and the unit
   layout renders an accessible "Listen" section with transcripts. **Polish
   decision:** `pl_PL-gosia-medium` primary, `pl_PL-darkman-medium` for the second
-  dialogue speaker, both CC0 — read from `audiogen/voices.yml`
-  (`kit/audio/voices.yml` from F1), never hand-typed. Gate on the §2 audition; ship
+  dialogue speaker, both CC0 — read from `kit/audio/voices.yml`, which is the
+  single source of truth for voice IDs and is never hand-copied into prose. Gate on the §2 audition; ship
   transcripts-only for any segment where TTS mispronounces
   diacritics/palatalisation until a suitable voice or native recordings exist.
   Record the voice + decision in each manifest.
@@ -228,7 +259,7 @@ build with no new coverage warnings. A level is "phase-done" when all its units
 
 **Required and non-skippable.** Every content page that is an original creative
 text of **≥ 1800 rendered characters** gets exactly one VG Wort Zählmarke, per
-`pagegen/docs/vgwort-standard.md`. This covers **every unit, every exam, every
+`kit/docs/vgwort-standard.md`. This covers **every unit, every exam, every
 appendix, and every editorial page** (about, course overview, the pre-A1 primer
 pages where ≥1800 chars). It does **not** cover navigation surfaces (home,
 `/materials/`, tag/section indexes, paginated continuations) or the **templated
@@ -260,9 +291,9 @@ full A1–B2 edition; draw them in per-phase batches, not all up front.
 
 ## 8. Milestones & sequencing
 
-**M0 — Scaffold live (S–M).** §3 complete: template copied, `hugo.toml` set,
-brand regenerated, legal filled, first green build on GitHub Pages. Site shows
-correct accent + favicon. *Still "coming soon" on the map.*
+**M0 — Scaffold live (S–M).** §3 complete: repo standing on the kit module with
+`_materials/` vendored, `hugo.toml` set, brand regenerated, legal filled, first
+green build on GitHub Pages. Site shows correct accent + favicon. *Still "coming soon" on the map.*
 
 **M1 — Conformance skeleton (M).** Publish `conformance.yml` mapping the A1
 in-scope descriptors; wire the §4 conformance gate in CI; confirm it passes.

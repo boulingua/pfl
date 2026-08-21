@@ -72,14 +72,21 @@ Concrete, opinionated choices — one recommendation each.
   audio — *not* a full CEFR level. It carries `preA1` `LING`/`PRAG` descriptor
   coverage where the CV has descriptors and `no-official-descriptor` otherwise.
 - **Native voice / TTS.** **Decision:** default to the boulingua `audiogen`/Piper
-  pipeline using a Polish Piper voice (e.g. `pl_PL-darkman-medium` /
-  `pl_PL-gosia-medium`), **contingent on an audition gate**: synthesize a
-  diagnostic set (nasal vowels, palatalised series ś/ć/ź/dź, ł, consonant clusters,
-  numeral agreement phrases) and human-verify. If quality is inadequate, fall back
-  to (a) a different Piper voice, or (b) ship transcripts-only for the affected
-  segments until a better voice or licensed native recordings are available. Never
-  ship audio that mispronounces diacritics — record the decision in the audio
-  manifest.
+  pipeline. The licence position is clean and settles the choice:
+  **`pl_PL-gosia-medium`** as primary and **`pl_PL-darkman-medium`** as the second
+  speaker — both **CC0**, both medium tier — which gives the alternating pair
+  dialogue needs without any fallback. `pl_PL-bass-high` is the only high-tier
+  Polish voice and its model card carries **no licence line at all**, so it is
+  excluded; an unstated licence is not permission. Voice IDs are read from
+  `audiogen/voices.yml` (relocating to `kit/audio/voices.yml` at F1) and are never
+  hand-typed — a transliterated ID is how a 404 gets written into a download
+  script. What remains open is **quality, not availability**, so the audition gate
+  stands: synthesize a diagnostic set (nasal vowels, palatalised series ś/ć/ź/dź,
+  ł, consonant clusters, numeral agreement phrases) and human-verify. If quality is
+  inadequate, fall back to `pl_PL-darkman-medium`, then to `pl_PL-mc_speech-medium`
+  (CC0), then to transcripts-only for the affected segments — never to a
+  neighbouring Slavic language's voice. Never ship audio that mispronounces
+  diacritics; record the decision in the audio manifest.
 
 ---
 
@@ -136,9 +143,14 @@ mandates C1). This is the honest instantiation posture the framework expects
   `curriculum/examples/de-a1/conformance.yml`): `framework_version`,
   `language: pl`, `declared_conformance`, and per-scale `levels covered vs
   no-official-descriptor`, plus `realizations:` mapping each `implements_id` to its
-  Polish realisation. **Every `implements_id` must resolve** so that
-  `curriculum/scripts/id-audit.sh` passes (format, uniqueness, in-scope scale,
-  level agreement). Add a CI step that runs the id-audit against our manifest.
+  Polish realisation. **Every `implements_id` must resolve** — format, uniqueness,
+  in-scope scale, level agreement.
+
+  **Gate.** The reusable workflow
+  `boulingua/.github/.github/workflows/course-build.yml@v1` runs
+  `python .curriculum/scripts/conformance_audit.py resolve --manifest
+  conformance.yml --content content`. `id-audit.sh` audits the framework's *own*
+  level files and **cannot** validate this repo. Do not wire it here.
 
 ---
 
@@ -176,10 +188,11 @@ agreement** cheatsheet, (e) **pronunciation & orthography** reference, (f)
 
 **Acceptance criteria per phase.** For each phase: every unit has the five-part
 body (Objectives / Input / Practise / Produce / Reflect), a filled `curriculum`
-block whose IDs pass id-audit, `skills_focus` set, committed slide deck +
-worksheet (thumbnails rendered), audio (or a recorded transcripts-only decision),
-a VG Wort mark if ≥1800 chars (§7), and a green build with no new coverage
-warnings. A level is "phase-done" when all its units + its model exam meet this.
+block whose IDs all resolve under the §4 gate, `skills_focus` set, committed
+slide deck + worksheet (thumbnails rendered), audio (or a recorded
+transcripts-only decision), a VG Wort mark if ≥1800 chars (§7), and a green
+build with no new coverage warnings. A level is "phase-done" when all its units
++ its model exam meet this.
 
 ---
 
@@ -200,9 +213,12 @@ warnings. A level is "phase-done" when all its units + its model exam meet this.
 - **Audio.** `scripts/build_audio.py` (Piper) extracts vocab/dialogue/text
   segments, synthesizes OGG/Opus, writes `data/audio/<slug>.json`, and the unit
   layout renders an accessible "Listen" section with transcripts. **Polish
-  decision:** gate on the §2 audition; ship transcripts-only for any segment where
-  TTS mispronounces diacritics/palatalisation until a suitable voice/native
-  recordings exist. Record the voice + decision in each manifest.
+  decision:** `pl_PL-gosia-medium` primary, `pl_PL-darkman-medium` for the second
+  dialogue speaker, both CC0 — read from `audiogen/voices.yml`
+  (`kit/audio/voices.yml` from F1), never hand-typed. Gate on the §2 audition; ship
+  transcripts-only for any segment where TTS mispronounces
+  diacritics/palatalisation until a suitable voice or native recordings exist.
+  Record the voice + decision in each manifest.
 - **Downloads.** Exam PDFs and printable packs under `static/downloads/<level>/`,
   surfaced with the `downloads` shortcode; all attributed (CC BY-SA 4.0).
 
@@ -249,7 +265,7 @@ brand regenerated, legal filled, first green build on GitHub Pages. Site shows
 correct accent + favicon. *Still "coming soon" on the map.*
 
 **M1 — Conformance skeleton (M).** Publish `conformance.yml` mapping the A1
-in-scope descriptors; wire the id-audit CI step; confirm it passes.
+in-scope descriptors; wire the §4 conformance gate in CI; confirm it passes.
 
 **M2 — MVP: pre-A1 primer + A1 live (L).** `get-started` stage + all A1 units +
 A1 model exam, with materials, audio (or recorded decision), and VG Wort marks.
@@ -272,7 +288,8 @@ parallel with authoring.
 - At minimum **M2 (pre-A1 + full A1 + A1 exam)** shipped end-to-end — ideally
   through **M4 (`core`/B1)** before flipping — with materials, audio decision,
   and VG Wort marks on every ≥1800-char page (coverage warnings at 0).
-- `conformance.yml` published and passing id-audit; declared level accurate.
+- `conformance.yml` published and passing the §4 conformance gate; declared
+  level accurate.
 - No ⟨…⟩ placeholders remain; downloads present + attributed.
 - World-map entry updated from "coming soon" to active with the correct link.
 
@@ -280,9 +297,14 @@ parallel with authoring.
 
 ## 9. Open decisions & risks (language-specific)
 
-- **Piper Polish voice quality** — primary risk. Nasal vowels, palatalised
-  ś/ć/ź/dź, ł and clusters are where TTS breaks. *Mitigation:* audition gate;
-  transcripts-only fallback; possible licensed native recordings later.
+- **Piper Polish voice quality** — primary risk, and now the *only* audio risk.
+  Licence and availability are settled: `pl_PL-gosia-medium` and
+  `pl_PL-darkman-medium` are both CC0 and both medium, so a two-speaker Polish
+  course is licence-clear today. What is unproven is pronunciation — nasal vowels,
+  palatalised ś/ć/ź/dź, ł and clusters are where TTS breaks. *Mitigation:* the §2
+  audition gate; the second CC0 voice, then `pl_PL-mc_speech-medium`, then
+  transcripts-only as the fallback ladder; possible licensed native recordings
+  later.
 - **Case-introduction ordering** — pedagogical, not settled. Function-first
   (introduce each case by what it *does*) vs paradigm-first. *Recommendation:*
   function-first, spread across A1–B1; decide the exact sequence before M2.

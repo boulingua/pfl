@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use or cite this material, please use the following metadata."
+title: "PFL — Polish as a foreign language (pre-A1 to B2)"
+abstract: >-
+  A free, openly-licensed Polish course in English, aligned to the Common
+  European Framework of Reference: a pre-A1 orthography and pronunciation
+  primer followed by the levels A1, A2, B1 and B2, each with units, a model
+  exam, printable materials and native-voice audio.
+type: dataset
+authors:
+  - family-names: "Le Boulanger"
+    given-names: "S."
+    email: "277736839+s-leboulanger@users.noreply.github.com"
+repository-code: "https://github.com/boulingua/pfl"
+url: "https://boulingua.github.io/pfl/"
+license:
+  - MIT
+  - CC-BY-SA-4.0
+keywords:
+  - "Polish"
+  - "polski"
+  - "Polish as a foreign language"
+  - "CEFR"
+  - "A1"
+  - "A2"
+  - "B1"
+  - "B2"
+  - "open educational resources"

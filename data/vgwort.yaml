@@ -1,0 +1,24 @@
+# VG Wort Zählmarken registry (see docs/vgwort-standard.md).
+# Empty by design — codes are drawn per work from the author's T.O.M. account
+# and must never be invented, reused or committed before they are drawn.
+# Add entries matched by `url:` (base-stripped RelPermalink) or `path:`
+# (content/<File.Path>); the token goes in `pixel_url` (or `public_id`).
+#
+#   - url: /level-a1/units/unit01-poznajmy-sie/
+#     public_id: <32-hex>
+#     pixel_url: https://vg09.met.vgwort.de/na/<32-hex>
+#     min_chars: 1800
+#     author: S. Le Boulanger
+#     registered_at: 'YYYY-MM-DD'
+#
+# Pages already written that exceed the 1800-character Mindestumfang and are
+# therefore awaiting a mark (verify_vgwort_coverage.py reports them):
+#
+#   /about/                 — course overview
+#   /appendices/glossary/   — glossary of grammatical terms
+#
+# Section landings, the home page, /materials/ and the templated legal pages
+# are navigation surfaces and are NOT marked. Draw codes in per-phase batches,
+# not all up front; record each one in the private usage registry outside this
+# repository (Used, Projekt=pfl, Sprache=Polish, Niveau, Kurstitel, URL,
+# Pixel_URL).

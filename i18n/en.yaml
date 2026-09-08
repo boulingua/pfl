@@ -1,0 +1,18 @@
+# Interface strings. The course metalanguage is English (languageCode = "en");
+# every user-visible string in layouts/ resolves through this file.
+presentations: { other: "Slide decks" }
+worksheets: { other: "Worksheets" }
+presentation: { other: "Slide deck" }
+worksheet: { other: "Worksheet" }
+download: { other: "Download" }
+downloads: { other: "Downloads" }
+download_pdf: { other: "Download .pdf" }
+preview: { other: "Preview" }
+listen: { other: "Listen" }
+audio_intro: { other: "Vocabulary, dialogues and texts from this unit as audio, spoken by a native voice. The spoken text is printed below each player." }
+audio_unsupported: { other: "Your browser does not support the audio element." }
+show_transcript: { other: "Show the transcript" }
+exam: { other: "Exam" }
+menu_toggle: { other: "Open or close the main menu" }
+colorscheme_toggle: { other: "Switch colour scheme (light / dark)" }
+colorscheme_label: { other: "Light / Dark" }

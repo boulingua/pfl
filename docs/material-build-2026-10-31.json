@@ -1,0 +1,55 @@
+{
+  "status": "draft-review-materials",
+  "verified_date": "2026-11-02",
+  "source": "content/a1/units/unit01-erste-begegnung/index.md",
+  "source_before_download_metadata_sha256": "40fc54b4522fa9617fd93b594f5b9c5065f6ab6ef91549d4c4a9a67cf955615d",
+  "source_sha256": "637f46be50ea8c0fb2383e499275fa57804eee9aca504c1395a16459269a1562",
+  "producer_sha256": "669459d6168e95cd32f434faff213c7f258178d62218adc1e6e0c9f037316e05",
+  "final_renderer_sha256": "cb778587fdc0d3d6f80edad9323e832ece617ddcae99c01b8b80f215e99badf6",
+  "renderer_status": "byte-identical TeX under final renderer; actual producer identity retained",
+  "verification": {
+    "all_ordered_source_blocks": true,
+    "answer_blanks_and_controls_preserved": true,
+    "learner_key_separation": true,
+    "source_link_targets": true,
+    "no_missing_glyphs_or_overflow": true,
+    "page_bounds": true,
+    "thumbnail_pixels_match": true,
+    "greek_and_functional_symbols_mupdf_and_poppler": true,
+    "representative_visual_review": true,
+    "human_linguistic_and_pedagogical_approval": false
+  },
+  "validation_sha256": "c11e4f402a1b28fec46f118f47460a434ed24aebb402cf5176110454ef88b1d2",
+  "files": [
+    {
+      "path": "static/materials/presentations/a1_unit01-erste-begegnung.pdf",
+      "sha256": "5c07f0f375acac43ad3a321889c4f1f896e706be82911c3864d943d43f7f6292",
+      "pages": 17,
+      "tex_sha256": "539d13d6c650446bdb2c5a7eb9a69b61f0a158de7f92bd27aa7440b6673f4ae8"
+    },
+    {
+      "path": "static/materials/presentations/a1_unit01-erste-begegnung.png",
+      "sha256": "1845c26f8f81aa9eb9168599842cd6458706ed1c08e73ff6266c02abe8cbf9ee"
+    },
+    {
+      "path": "static/materials/worksheets/a1_unit01-erste-begegnung.pdf",
+      "sha256": "d929402a1c8d5eb27c335a84984ebb43e12328204901517966780c970dde81f8",
+      "pages": 3,
+      "tex_sha256": "2ad1a7a412931edb12dc515f4c63ea14f88f9cadfdc4de3a1c1719c09a6ed6b3"
+    },
+    {
+      "path": "static/materials/worksheets/a1_unit01-erste-begegnung.png",
+      "sha256": "30bde5908596b34c4613b20809abc5ddbac53e237bc4cbd6b1a9b2421c75bb97"
+    },
+    {
+      "path": "static/materials/worksheets/a1_unit01-erste-begegnung-teacher.pdf",
+      "sha256": "80fe38f1f6606b465bd51f92323b4f5af8134562d05d1b3cba0c4abedce543f5",
+      "pages": 4,
+      "tex_sha256": "678331b782833a9eff13822efd1b646e084e865f9cc4ace642fc8e6209bd940f"
+    },
+    {
+      "path": "static/materials/worksheets/a1_unit01-erste-begegnung-teacher.png",
+      "sha256": "d87d74b862264cb2d47e03e9b9144e370b70dc4e8e6f7b604242f2645404bee3"
+    }
+  ]
+}

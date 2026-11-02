@@ -1,0 +1,20 @@
+{
+  "static/materials/presentations/a1_unit01-erste-begegnung.pdf": {
+    "pdf_sha256": "5c07f0f375acac43ad3a321889c4f1f896e706be82911c3864d943d43f7f6292",
+    "png_sha256": "1845c26f8f81aa9eb9168599842cd6458706ed1c08e73ff6266c02abe8cbf9ee",
+    "standard": "1000px",
+    "width": 1000
+  },
+  "static/materials/worksheets/a1_unit01-erste-begegnung-teacher.pdf": {
+    "pdf_sha256": "80fe38f1f6606b465bd51f92323b4f5af8134562d05d1b3cba0c4abedce543f5",
+    "png_sha256": "d87d74b862264cb2d47e03e9b9144e370b70dc4e8e6f7b604242f2645404bee3",
+    "standard": "1000px",
+    "width": 1000
+  },
+  "static/materials/worksheets/a1_unit01-erste-begegnung.pdf": {
+    "pdf_sha256": "d929402a1c8d5eb27c335a84984ebb43e12328204901517966780c970dde81f8",
+    "png_sha256": "30bde5908596b34c4613b20809abc5ddbac53e237bc4cbd6b1a9b2421c75bb97",
+    "standard": "1000px",
+    "width": 1000
+  }
+}

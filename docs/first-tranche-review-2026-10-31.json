@@ -1,0 +1,136 @@
+{
+  "scope": "Pronunciation drafts and one A1 teaching unit with its assessment; no M2 or achieved coverage claim",
+  "sources": [
+    {
+      "url": "https://zpe.gov.pl/a/rozdzial-0/D71CZS6DR",
+      "use": "Polish alphabet and sound-letter orientation; external learning model"
+    },
+    {
+      "url": "https://zpe.gov.pl/a/karta-zadan-interaktywnych/D1HXAdpcB",
+      "use": "32-letter alphabet inventory"
+    }
+  ],
+  "pages": [
+    {
+      "page": "a1/units/unit01-erste-begegnung",
+      "sha256": "637f46be50ea8c0fb2383e499275fa57804eee9aca504c1395a16459269a1562",
+      "review_status": "pending",
+      "reviewer": null,
+      "mappings": [
+        {
+          "id": "A1.REC.overall-reading-comprehension.01",
+          "statement": "You can make sense of very short, simple texts one phrase at a time, spotting familiar names, words and basic phrases and rereading as needed.",
+          "basis": "proposed",
+          "task_evidence": "Input and Practise1/2 identify names and explicit residence while tracking list-versus-dialogue provenance; exam1 extracts four facts.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.conversation.03",
+          "statement": "You introduce someone and use basic phrases for greeting and taking your leave.",
+          "basis": "proposed",
+          "task_evidence": "Apply performs introductions/greetings/closings; exam3 rotates guest and reception.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.information-exchange.05",
+          "statement": "I can tell people my name and ask other people theirs.",
+          "basis": "proposed",
+          "task_evidence": "Practise3 distinguishes first-name/full-name questions; exam3 requires reciprocal elicitation.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.LING.orthographic-control.01",
+          "statement": "You copy familiar words and short phrases (signs, instructions, object names, shop names, set phrases), spell your address, nationality, and other personal details, and use basic punctuation like full stops and question marks.",
+          "basis": "proposed",
+          "task_evidence": "Practise1/4 preserves Polish diacritics and exact names; exam2 checks four copied forms.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.SOC.sociolinguistic-appropriateness.01",
+          "statement": "I can make basic social contact using the simplest everyday polite forms: greetings and goodbyes, introductions, and saying please, thank you, and sorry.",
+          "basis": "proposed",
+          "task_evidence": "Input and Practise3/5 contrast informal and pan/pani routines with apologies/repetition; exam3 assesses appropriate repair.",
+          "review_decision": null
+        }
+      ],
+      "source_revisions": [
+        {
+          "previous_sha256": "40fc54b4522fa9617fd93b594f5b9c5065f6ab6ef91549d4c4a9a67cf955615d",
+          "reason": "Added verified draft download metadata; teaching body unchanged."
+        }
+      ]
+    },
+    {
+      "page": "a1/units/unit01-erste-begegnung-exam",
+      "sha256": "ca055bb73c2ed1fc97299edf9a0ac447583659f72a60f0b2110c342abaa9c02e",
+      "review_status": "pending",
+      "reviewer": null,
+      "mappings": [
+        {
+          "id": "A1.REC.overall-reading-comprehension.01",
+          "statement": "You can make sense of very short, simple texts one phrase at a time, spotting familiar names, words and basic phrases and rereading as needed.",
+          "basis": "proposed",
+          "task_evidence": "Input and Practise1/2 identify names and explicit residence while tracking list-versus-dialogue provenance; exam1 extracts four facts.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.conversation.03",
+          "statement": "You introduce someone and use basic phrases for greeting and taking your leave.",
+          "basis": "proposed",
+          "task_evidence": "Apply performs introductions/greetings/closings; exam3 rotates guest and reception.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.INT.information-exchange.05",
+          "statement": "I can tell people my name and ask other people theirs.",
+          "basis": "proposed",
+          "task_evidence": "Practise3 distinguishes first-name/full-name questions; exam3 requires reciprocal elicitation.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.LING.orthographic-control.01",
+          "statement": "You copy familiar words and short phrases (signs, instructions, object names, shop names, set phrases), spell your address, nationality, and other personal details, and use basic punctuation like full stops and question marks.",
+          "basis": "proposed",
+          "task_evidence": "Practise1/4 preserves Polish diacritics and exact names; exam2 checks four copied forms.",
+          "review_decision": null
+        },
+        {
+          "id": "A1.SOC.sociolinguistic-appropriateness.01",
+          "statement": "I can make basic social contact using the simplest everyday polite forms: greetings and goodbyes, introductions, and saying please, thank you, and sorry.",
+          "basis": "proposed",
+          "task_evidence": "Input and Practise3/5 contrast informal and pan/pani routines with apologies/repetition; exam3 assesses appropriate repair.",
+          "review_decision": null
+        }
+      ]
+    }
+  ],
+  "native_review": null,
+  "pedagogical_review": null,
+  "audio_decision": "transcript-only draft; no recording approved",
+  "reference_pages": [
+    {
+      "page": "aussprache/litery-i-znaki",
+      "sha256": "826cdece106e47e75fb25a287ab2d9bf240771589e35277f06542cea1906d28f",
+      "review_status": "pending",
+      "reviewer": null,
+      "checks": [
+        "Check script and example spelling against cited primary references",
+        "Check pronunciation explanations and scoped exceptions",
+        "Exercise instructions with intended beginners",
+        "Review any future recording separately; no audio approval inferred"
+      ]
+    },
+    {
+      "page": "aussprache/sluchanie-i-zapis",
+      "sha256": "22a716e61acb6205c94eb58b8560a78a06a2e183a7b6171108e840137b0d059d",
+      "review_status": "pending",
+      "reviewer": null,
+      "checks": [
+        "Check script and example spelling against cited primary references",
+        "Check pronunciation explanations and scoped exceptions",
+        "Exercise instructions with intended beginners",
+        "Review any future recording separately; no audio approval inferred"
+      ]
+    }
+  ]
+}
